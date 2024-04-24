@@ -1,0 +1,16 @@
+/* Styles pour les sections */
+.accueil, .details {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+}
+
+/* Styles pour les éléments dans les sections */
+.accueil h1, .details h1 {
+    margin-top: 0;
+}
+
+/* Styles pour les films et séries */
+#films, #series, #detailFilm, #detailSerie {
+    margin-top: 20px;
+}
