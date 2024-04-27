@@ -1,0 +1,53 @@
+/* Styles pour les sections */
+*{
+    box-sizing: border-box;
+}
+
+
+.accueil, .details {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+}
+
+/* Styles pour les éléments dans les sections */
+.accueil h1, .details h1 {
+    margin-top: 0;
+}
+
+/* Styles pour les films et séries */
+#films, #series, #detailFilm, #detailSerie {
+    margin-top: 20px;
+}
+
+body{
+    background:radial-gradient(#e66465, #9198e5);
+}
+
+img{
+    object-fit:cover;
+}
+
+/* ESPACEMENTS */
+
+.g-1{
+    gap:8px;
+}
+/* AJUSTEMENTS DE LA CAROUSEL */
+#carouselBasicExample {
+    width: 90%;
+    margin: auto;
+  }
+
+  #carouselBasicExample .carousel-item img {
+    height: 300px;
+    object-fit: cover;
+  }
+/* RESPONSIVITE */
+  @media (min-width: 768px) {
+    #carouselBasicExample .carousel-item img {
+      height: 450px;
+    }
+  }
+
+
