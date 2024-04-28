@@ -1,0 +1,82 @@
+/* Styles pour les sections */
+*{
+    box-sizing: border-box;
+}
+
+
+.accueil, .details {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+}
+
+/* Styles pour les éléments dans les sections */
+.accueil h1, .details h1 {
+    margin-top: 0;
+}
+
+/* Styles pour les films et séries */
+#films, #series, #detailFilm, #detailSerie {
+    margin-top: 20px;
+}
+
+body{
+    background:radial-gradient(#e66465, #9198e5);
+}
+
+.title{
+    background: white;
+    padding: 30px;
+    text-align: center;
+    color: black;
+}
+
+img{
+    object-fit:cover;
+}
+
+
+.title-film{
+    float: left;
+}
+
+#films-similaires img{
+    float: left;
+    margin: 20px;
+}
+
+.input-commentaire {
+    font-size: 18px;
+    width: 100%;
+    resize: none;
+    height: 100px;
+}
+
+footer a{
+    text-decoration: none;
+}
+
+/* ESPACEMENTS */
+
+.g-1{
+    gap:8px;
+}
+/* AJUSTEMENTS DE LA CAROUSEL */
+#carouselBasicExample {
+    width: 90%;
+    margin: auto;
+
+  }
+
+  #carouselBasicExample .carousel-item img {
+    height: 300px;
+    object-fit: cover;
+  }
+/* RESPONSIVITE */
+  @media (min-width: 768px) {
+    #carouselBasicExample .carousel-item img {
+      height: 450px;
+    }
+  }
+
+
