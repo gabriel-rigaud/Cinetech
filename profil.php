@@ -1,51 +1,60 @@
 <?php
+// Informations de connexion à la base de données
+$host = 'localhost';
+$username = 'root';
+$password = '';
+$dbname = 'cinetech';
+
+// Connexion à la base de données
+$conn = mysqli_connect($host, $username, $password, $dbname);
+
+// Vérifier la connexion
+if (!$conn) {
+    die("Connexion échouée : " . mysqli_connect_error());
+}
+
 session_start();
+
 try {
     // Vérification de l'existence de la session
-    if(!isset($_SESSION['user']))
-    {
+    if(!isset($_SESSION['user'])) {
         //Autrement on redirige vers connexion
         header('location: connexion.php');
         exit();
     }
 
     // Stockage de l'identifiant de l'utilisateur connecté dans $idverify
-    $idverify = $_SESSION['user'];
+    $idverify = $_SESSION['user']['login'];
 
+    // Récupération des données envoyées en POST
+    if(isset($_POST['login']) && isset($_POST['password']) && isset($_POST['password2'])) {
+        $new_login = $_POST['login'];
+        $password = $_POST['password'];
+        $password2 = $_POST['password2'];
 
-    // Récupération des données envoyées en AJAX
-    if(isset($_POST['user']) && !empty($_POST['user'])) {
-        $new_login = $_POST['user'];
-
-        // Vérification que le nouveau login n'est pas déjà utilisé
-        $connexion = mysqli_connect("localhost","root","","cinetech") or die('erreur');
-        $reget = ("SELECT * FROM utilisateurs WHERE login='$new_login' ");
-        $regetx = mysqli_query($connexion, $reget);
-        $row = mysqli_num_rows($regetx);
-
-        if($row == 0) {
-            // Modification du login dans la base de données
-            $requete = ("UPDATE `utilisateurs` SET login = '$new_login' WHERE login = '$idverify' ");
-            $query = mysqli_query($connexion, $requete);
-
-            if($query) {
-                // Si la modification s'est bien déroulée, on retourne "success" en JSON
-                echo json_encode(array("Votre login a été modifié avec succès !"));
-            }
-            else {
-                // Si la modification a échoué, on retourne "error" en JSON
-                echo json_encode(array("Une erreur est survenue lors de la modification de votre login."));
-            }
+        // Vérification que les champs ne sont pas vides
+        if (empty($new_login) || empty($password) || empty($password2)) {
+            die('Tous les champs sont obligatoires.');
         }
-        else {
-            // Si le login est déjà utilisé, on retourne "error" en JSON
-            echo json_encode(array("Ce login est déjà utilisé."));
+
+        // Vérification que le mot de passe est correct
+        if ($password != $password2) {
+            die('Les mots de passe ne correspondent pas.');
         }
+
+        // Modification du login dans la base de données
+        $query_update = "UPDATE users SET login = ? WHERE login = ?";
+        $stmt_update = mysqli_prepare($conn, $query_update);
+        mysqli_stmt_bind_param($stmt_update, "ss", $new_login, $idverify);
+        mysqli_stmt_execute($stmt_update);
+
+        // Mettre à jour le login dans la session
+        $_SESSION['user']['login'] = $new_login;
+
+        echo 'Votre login a été modifié avec succès !';
     }
-}
-catch(PDOException $pe)
-{
-    echo 'ERREUR : '.$pe->getMessage();
+} catch(Exception $e) {
+    echo 'Erreur : ' . $e->getMessage();
 }
 ?>
 
@@ -55,42 +64,39 @@ catch(PDOException $pe)
     <meta charset="UTF-8">
     <title>Profil</title>
     <link rel="icon" href="https://cdn.dribbble.com/users/230290/screenshots/15128882/media/4175d17c66f179fea9b969bbf946820f.jpg?compress=1&resize=400x300" type="image/x-icon">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" /></html>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-
-</header>
-<?php include('header.php') ?>
-</header>
-
 <body id="profil">
-    <center>
-        <div class="autre" id="profil">
-            <div class="titre">
-                <h1>Profil</h1>
-                <?php echo "<h3 style='color: white'>Bienvenue <span style='color: red;'>$login</span></h3><br>"; ?>
-            </div>
-            <form action="profil.php" method="post">
-                <div>
-                    <label for="login">Votre Login :</label>
-                    <input type="text" id="login" name="login" placeholder="Entrer votre login" required><br><br>
-                </div>
-
-                <div>
-                    <label for="mdp">Password&nbsp;: </label>
-                    <input type="password" id="mdp" name="password" placeholder="Entrer votre password" required><br><br>
-                </div>
-
-                <div>
-                    <label for="confmdp">Confirmé&nbsp;:</label>
-                    <input type="password" id="confmdp" name="password2" placeholder="Re rentrer password" required><br><br>
-                </div>
-
-                <div>
-                    <br>
-                    <button class="btn-blue" type="submit" name="submit">Valider</button>
-                    <button class="btn-blue"><a class="clique" href="deconnexion.php">Deconnexion</a></button>
-                </div>
+<?php include 'header.php'; ?>
+<center>
+    <div class="autre" id="profil">
+        <div class="titre">
+            <h1>Profil</h1>
+            <?php echo "<h3 style='color: black'>Bienvenue <span style='color: red;'>".$_SESSION['user']['login']."</span></h3><br>"; ?>
         </div>
-    </center>
+        <form action="profil.php" method="post">
+            <div>
+                <label for="login">Votre Login :</label>
+                <input type="text" id="login" name="login" value="<?php echo $_SESSION['user']['login']; ?>" required><br><br>
+            </div>
+
+            <div>
+                <label for="mdp">Password&nbsp;: </label>
+                <input type="password" id="mdp" name="password" placeholder="Entrer votre password" required><br><br>
+            </div>
+
+            <div>
+                <label for="confmdp">Confirmé&nbsp;:</label>
+                <input type="password" id="confmdp" name="password2" placeholder="Re rentrer password" required><br><br>
+            </div>
+
+            <div>
+                <br>
+                <button class="btn-blue" type="submit" name="submit">Valider</button>
+                <button class="btn-blue"><a class="clique" style="text-decoration: none;color: black" href="deconnexion.php">Deconnexion</a></button>
+            </div>
+        </form>
+    </div>
+</center>
 </body>
 </html>
