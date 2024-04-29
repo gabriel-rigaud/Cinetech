@@ -33,10 +33,11 @@
               <a class="nav-link" href="article.html">Series</a>
             </li>
           </ul>
-          <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <form class="d-flex" role="search" onsubmit="return false;">
+            <input id="search-input" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-danger" type="submit">Rechercher</button>
           </form>
+        
         </div>
       </div>
     </nav>
@@ -48,6 +49,7 @@
 <div id="series-similaires"></div> -->
   <!-- Titre de la page -->
   <h1 class ="text-center">Bienvenue sur notre site chère visiteur !</h1>
+  <h3 class ="text-center">Films et Séries en exclusivité !</h3>
   <!-- Mise en place de la carousel -->
 <div id="carouselBasicExample" class="carousel slide carousel-fade rounded" data-mdb-ride="carousel" data-mdb-interval="3000">
   <ol class="carousel-indicators">
@@ -99,12 +101,13 @@
 
 </main>
 
+<!-- Pied de Page -->
 <footer class="text-center text-lg-start bg-dark text-muted text-white">
   <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
     <div class="me-5 d-none d-lg-block">
       <span class ="text-white">Rejoignez-nous sur les réseaux sociaux :</span>
     </div>
-   
+   <!-- Lien vers les réseaux sociaux -->
     <div>
       <a href="" class="me-4 text-reset">
         <i class="fab fa-facebook-f text-white"></i>
@@ -138,12 +141,12 @@
           <h6 class="text-uppercase fw-bold mb-4 text-white"><i class="fas fa-gem me-3 text-white"></i>Compagnie Cinetch</h6>
           <p class ="text-white">
             Cinetch, officiellement orthographié Cinetch, est un service fournissant des informations cinématographiques
-            en ligne fondé par Ali-Farhad Masoomi en 1989, puis rejoint par deuxième cerveau.
+            en ligne fondé par Etienne-René-Blanchard en 1989, puis rejoint par son collaborateur.
           </p>
         </div>
         <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
           <!-- Links -->
-          <h6 class="text-uppercase fw-bold mb-4 text-white">Rubriques 1 :</h6>
+          <h6 class="text-uppercase fw-bold mb-4 text-white">Section 1 :</h6>
           <p class ="text-white">
             <a href="https://www.allocine.fr/service/contact/" class="text-reset text-white">Contact</a>
           </p>
@@ -159,7 +162,7 @@
         </div>
   
         <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-          <h6 class="text-uppercase fw-bold mb-4 text-white">Rubriques 2 :</h6>
+          <h6 class="text-uppercase fw-bold mb-4 text-white">Section 2 :</h6>
           <p class ="text-white">
             <a href="https://www.allocine.fr/service/cookies.html" class="text-reset text-white">Préférences Cookies</a>
           </p>
@@ -175,7 +178,7 @@
         </div>
         <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
           <!-- Links -->
-          <h6 class="text-uppercase fw-bold mb-4 text-white">Rubrique 3 :</h6>
+          <h6 class="text-uppercase fw-bold mb-4 text-white">Section 3 :</h6>
           <p class ="text-white"><i class="fas fa-home me-3 text-white"></i> Aix-En-Provence,13102,France</p>
           <p class ="text-white"><i class="fas fa-envelope me-3 text-white"></i> cinetch.aix@gmail.com</p>
           <p class ="text-white"><i class="fas fa-phone me-3 text-white"></i> + 33 199 524 24</p>
@@ -184,11 +187,10 @@
       </div>
     </div>
   </section>
+  <!-- Copyright -->
   <div class="text-center d-flex justify-content-center p-4 g-1" style="background-color: rgba(0, 0, 0, 0.05);">
     <p class ="text-white">© 2024 Copyright:</p>
     <p class ="text-white"><a class="text-reset fw-bold text-white" href="https://mdbootstrap.com/"> MDBootstrap.com</a></p>
-    
-    <!-- Copyright -->
   </div>
 </footer>
 
