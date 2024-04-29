@@ -115,7 +115,7 @@
   </section>
   <div class="text-center d-flex justify-content-center p-4 g-1" style="background-color: rgba(0, 0, 0, 0.05);">
     <p class ="text-white">© 2024 Copyright:</p>
-    <p class ="text-white"><a class="text-reset fw-bold text-white" href="https://mdbootstrap.com/">Cinetech</a></p>
+    <p class ="text-white"><a class="text-reset fw-bold text-white">Cinetech</a></p>
 
     <!-- Copyright -->
   </div>
